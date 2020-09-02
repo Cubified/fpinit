@@ -1,5 +1,6 @@
 #!/bin/sh
 
-sync
+unmount -r -a -t nosysfs,noproc,nodevtmpfs,notmpfs
+mount -o remount,ro /
 
-umount -a -r &>/dev/null
+sync

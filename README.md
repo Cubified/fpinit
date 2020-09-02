@@ -24,9 +24,13 @@ To use `fpinit` as the system init, the kernel parameter:
 
 Must be added to the kernel's configuration, likely through bootloader (i.e. GRUB/LILO/Syslinux) or EFI boot entry configuration.
 
+### Included Scripts
+
+The scripts available in `fpinit.d/` and `fphalt.d/` are a stripped-down and modified subset of [Void's runit scripts](https://github.com/void-linux/void-runit), [stali's sinit scripts](http://r-36.net/scm/stali-init/files.html), and [Alpine's openrc scripts](https://git.alpinelinux.org/aports/tree/main/busybox-initscripts), doing slightly more than the absolute minimum necessary for a usable system.  Right now, they are intended to work on Alpine, however the only tangible change needed to support other distros would be to replace `0-mdev.sh` with an `(e)udev`-compatible version.
+
 ### Adding New Scripts
 
-Because `script` is configuration-free by design, any executable file can be placed into `/usr/local/share/fpinit.d/` or `/usr/local/share/fphalt.d/`.  As `fpinit` lacks process supervision, there is currently no built-in to create services or recurrent tasks, however POSIX `setsid` and bash's `disown`can achieve similar behavior (see [4-tty.sh](https://github.com/Cubified/script/blob/master/init.d/4-tty.sh)) 
+Because `script` is configuration-free by design, any executable file can be placed into `/usr/local/share/fpinit.d/` or `/usr/local/share/fphalt.d/`.  As `fpinit` lacks process supervision, there is currently no built-in way to create services or recurrent tasks, however POSIX `setsid` and bash's `disown` can achieve similar behavior (see [4-tty.sh](https://github.com/Cubified/script/blob/master/init.d/4-tty.sh)) 
 
 ### To-Do
 
