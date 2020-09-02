@@ -1,0 +1,3 @@
+0-daemons.sh: Sending SIGINT to daemons
+0-random.sh: Saving random number generator seed
+1-fs.sh: Syncing and unmounting disks

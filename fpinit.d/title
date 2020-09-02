@@ -1,0 +1,12 @@
+0-fs.sh: Mounting virtual filesystems and remounting root
+1-hwclock.sh: Setting hardware clock
+1-mdev.sh: Populating /dev
+1-hostname.sh: Setting hostname
+2-net.sh: Setting up networking
+2-var.sh: Cleaning up /var
+3-dmesg.sh: Starting kernel log
+3-random.sh: Seeding random number generator
+3-modules.sh: Loading kernel modules
+3-sysctl.sh: Setting kernel parameters
+3-syslogd.sh: Starting system log
+4-tty.sh: Starting TTYs

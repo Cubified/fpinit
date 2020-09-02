@@ -28,8 +28,8 @@ debug:
 	$(CC) $(SOURCES) -o $(OUT) $(LIBS) $(DEBUGFLAGS)
 
 install:
-	$(CP) -r script/init.d $(SHAREDIR)/fpinit.d
-	$(CP) -r script/halt.d $(SHAREDIR)/fphalt.d
+	$(CP) -rT fpinit.d $(SHAREDIR)/fpinit.d
+	$(CP) -rT fphalt.d $(SHAREDIR)/fphalt.d
 	test -d $(INSTALLDIR) || mkdir -p $(BINDIR)
 	install -pm 755 script/script $(BINDIR)
 	install -pm 755 $(OUT) $(BINDIR)
