@@ -4,6 +4,12 @@
 
 In its current state, `fpinit` is usable as a system's full-time init, but it (somewhat by design) lacks process supervision, meaning it does nothing other than boot and halt the system.
 
+### Demo
+
+`fpinit` booting Alpine Linux in a QEMU VM:
+
+![demo.gif](https://github.com/Cubified/fpinit/blob/master/demo.gif)
+
 ### Compiling and Running
 
 `fpinit` contains `script` as a module, meaning:
