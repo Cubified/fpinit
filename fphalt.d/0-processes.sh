@@ -1,5 +1,7 @@
 #!/bin/sh
 
-pkill --inverse -s0,1 -TERM
+pkill SIGTERM -v -s0
+pkill SIGTERM -v -s1
 sleep 1
-pkill --inverse -s0,1 -KILL
+pkill SIGKILL -v -s0
+pkill SIGKILL -v -s1

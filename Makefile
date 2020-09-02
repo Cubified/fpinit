@@ -16,12 +16,11 @@ SHAREDIR=/usr/local/share
 RM=/bin/rm
 CP=/bin/cp
 
-OS_NAME=$(shell awk -F'=' '$$1 == "NAME" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
-OS_VERSION=$(shell awk -F'=' '$$1 == "VERSION_ID" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
+OS_NAME=$(shell awk -F'=' '$$1 == "PRETTY_NAME" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
 
 FPINIT_VERSION=0.0.1
-SCRIPT_GREETING='BLUE "Welcome to " GREEN "fpinit v$(FPINIT_VERSION)" BLUE " running on " YELLOW "$(OS_NAME) $(OS_VERSION)"'
-SCRIPT_GREETING_NOCOLOR="Welcome to fpinit v$(FPINIT_VERSION) running on $(OS_NAME) $(OS_VERSION)"
+SCRIPT_GREETING='BLUE "Welcome to " GREEN "fpinit v$(FPINIT_VERSION)" BLUE " running on " YELLOW "$(OS_NAME)"'
+SCRIPT_GREETING_NOCOLOR="Welcome to fpinit v$(FPINIT_VERSION) running on $(OS_NAME)"
 
 .PHONY: script
 script:

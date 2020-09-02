@@ -13,6 +13,6 @@ find_inet() {
 for iface in $(find_ifaces); do
   ip link set dev $iface up
   if [ $(find_inet $iface) = "dhcp" ] && [ ! $(pidof udhcpc >/dev/null) ]; then
-    udhcpc
+    udhcpc &
   fi
 done

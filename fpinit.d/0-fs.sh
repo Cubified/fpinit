@@ -1,5 +1,7 @@
 #!/bin/sh
 
+USE_MDEV=1
+
 mkdir -p /dev
 mountpoint -q /dev || mount -t devtmpfs dev /dev -o mode=0755,nosuid
 mkdir -p /dev/pts
@@ -12,6 +14,16 @@ mkdir -p /run
 mountpoint -q /proc || mount -t proc  proc /proc -o nosuid,noexec,nodev
 mountpoint -q /sys  || mount -t sysfs sys  /sys  -o nosuid,noexec,nodev
 mountpoint -q /run  || mount -t tmpfs run  /run  -o mode=0755,nosuid,nodev
+
+if [ "$USE_MDEV" = "1" ]; then
+  echo /sbin/mdev > /proc/sys/kernel/hotplug
+  mdev -s
+else
+  udevd --daemon
+  udevadm trigger --action=add --type=subsystems
+  udevadm trigger --action=add --type=devices
+  udevadm settle
+fi
 
 mkdir -p -m 1777 /run/lock
 mkdir -p /dev/shm
