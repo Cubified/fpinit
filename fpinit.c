@@ -45,13 +45,20 @@ static struct {
 static sigset_t set;
 
 int
-main(void)
+main(int argc, char **argv)
 {
 	int sig;
 	size_t i;
 
 	if (getpid() != 1){
-    printf(RED "fpinit must be run as PID 1.\n" YELLOW "To power off the system, please run " GREEN "poweroff" YELLOW ".\n" YELLOW "To reboot the system, please run " GREEN "reboot" YELLOW ".\n" RESET);
+    if (argc == 2){
+      if (argv[1][0] == '0'){
+        sigpoweroff();
+      } else if (argv[1][0] == '6'){
+        sigreboot();
+      }
+    }
+    printf(RED "fpinit must be run as PID 1.\n" YELLOW "To power off the system, please run " GREEN "fpinit 0" YELLOW ".\n" YELLOW "To reboot the system, please run " GREEN "fpinit 6" YELLOW ".\n" RESET);
 		return 1;
   }
 	chdir("/");

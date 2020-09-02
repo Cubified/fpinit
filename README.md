@@ -27,3 +27,8 @@ Must be added to the kernel's configuration, likely through bootloader (i.e. GRU
 ### Adding New Scripts
 
 Because `script` is configuration-free by design, any executable file can be placed into `/usr/local/share/fpinit.d/` or `/usr/local/share/fphalt.d/`.  As `fpinit` lacks process supervision, there is currently no built-in to create services or recurrent tasks, however POSIX `setsid` and bash's `disown`can achieve similar behavior (see [4-tty.sh](https://github.com/Cubified/script/blob/master/init.d/4-tty.sh)) 
+
+### To-Do
+
+- Fix system occasionally hanging on `1-mdev.sh` and `3-sysctl.sh`
+- Move `init.d/` and `halt.d/` out of `script` repository and into `fpinit`
