@@ -8,9 +8,9 @@ In its current state, `fpinit` is usable as a system's full-time init, but it (s
 
 `fpinit` contains `script` as a module, meaning:
 
-     $ git submodule update --recursive --remote
+     $ git submodule update --init --recursive --remote
 
-Will clone the latest version of `script`.  `fpinit` can be compiled with:
+Will clone the latest version of `script` (`--init` is only necessary for first clone).  `fpinit` can be compiled with:
 
      $ make
 
@@ -30,9 +30,9 @@ The scripts available in `fpinit.d/` and `fphalt.d/` are a stripped-down and mod
 
 ### Adding New Scripts
 
-Because `script` is configuration-free by design, any executable file can be placed into `/usr/local/share/fpinit.d/` or `/usr/local/share/fphalt.d/`.  As `fpinit` lacks process supervision, there is currently no built-in way to create services or recurrent tasks, however POSIX `setsid` and bash's `disown` can achieve similar behavior (see [4-tty.sh](https://github.com/Cubified/script/blob/master/init.d/4-tty.sh)) 
+Because `script` is configuration-free by design, any executable file can be placed into `/usr/local/share/fpinit.d/` or `/usr/local/share/fphalt.d/`.  As `fpinit` lacks process supervision, there is currently no built-in way to create services or recurrent tasks, however POSIX `setsid` and bash's `disown` can achieve similar behavior (see [4-tty.sh](https://github.com/Cubified/fpinit/blob/master/fpinit.d/4-tty.sh)) 
 
 ### To-Do
 
-- Fix system occasionally hanging on `1-mdev.sh` and `3-sysctl.sh`
-- Move `init.d/` and `halt.d/` out of `script` repository and into `fpinit`
+- Fix system occasionally hanging on final script in each runlevel on single core systems (e.g. qemu by default -- threading issue, may not be easily resolved without adding more cores to VM)
+- Fix `fphalt.d/0-processes.sh` hanging the system on shutdown

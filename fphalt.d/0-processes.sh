@@ -1,7 +1,7 @@
 #!/bin/sh
 
-pkill SIGTERM -v -s0
-pkill SIGTERM -v -s1
-sleep 1
-pkill SIGKILL -v -s0
-pkill SIGKILL -v -s1
+# This is broken, killing itself and breaking the system in the process.
+
+#pkill -2 -v "init|script|sh"
+#sleep 1
+#pkill -9 -v "init|script|sh"
