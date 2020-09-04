@@ -46,4 +46,5 @@ uninstall:
 	$(RM) $(BINDIR)/$(OUT)
 
 clean:
+	if [ -e "$(OUT)" ]; then $(RM) script/script; fi
 	if [ -e "$(OUT)" ]; then $(RM) $(OUT); fi
