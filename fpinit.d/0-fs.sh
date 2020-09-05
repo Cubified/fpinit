@@ -1,7 +1,5 @@
 #!/bin/sh
 
-USE_MDEV=1
-
 mkdir -p /dev
 mountpoint -q /dev || mount -t devtmpfs dev /dev -o mode=0755,nosuid
 mkdir -p /dev/pts
@@ -15,8 +13,8 @@ mountpoint -q /proc || mount -t proc  proc /proc -o nosuid,noexec,nodev
 mountpoint -q /sys  || mount -t sysfs sys  /sys  -o nosuid,noexec,nodev
 mountpoint -q /run  || mount -t tmpfs run  /run  -o mode=0755,nosuid,nodev
 
-if [ "$USE_MDEV" = "1" ]; then
-  echo /sbin/mdev > /proc/sys/kernel/hotplug
+if command -v mdev >/dev/null; then
+  command -v mdev > /proc/sys/kernel/hotplug
   mdev -s
 else
   udevd --daemon
@@ -25,7 +23,8 @@ else
   udevadm settle
 fi
 
-mkdir -p -m 1777 /run/lock
+mkdir -p /run/lock
+chmod -R 1777 /run/lock
 mkdir -p /dev/shm
 mountpoint -q /dev/shm || mount -n -t tmpfs shm /dev/shm -o mode=1777,nosuid,nodev,noatime
 

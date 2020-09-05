@@ -18,7 +18,7 @@ CP=/bin/cp
 
 OS_NAME=$(shell awk -F'=' '$$1 == "PRETTY_NAME" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
 
-FPINIT_VERSION=0.0.1
+FPINIT_VERSION=0.1.0
 SCRIPT_GREETING='BLUE "Welcome to " GREEN "fpinit v$(FPINIT_VERSION)" BLUE " running on " YELLOW "$(OS_NAME)"'
 SCRIPT_GREETING_NOCOLOR="Welcome to fpinit v$(FPINIT_VERSION) running on $(OS_NAME)"
 

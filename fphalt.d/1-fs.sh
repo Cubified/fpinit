@@ -1,8 +1,6 @@
 #!/bin/sh
 
-USE_MDEV=1
-
-if [ "$USE_MDEV" = "0" ]; then
+if ! command -v mdev >/dev/null; then
   udevadm control --exit
 fi
 

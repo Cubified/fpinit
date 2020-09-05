@@ -9,3 +9,6 @@
 3-net.sh: Setting up networking
 3-syslogd.sh: Starting system log
 4-tty.sh: Starting TTYs
+
+1-ntpd.sh: Synchronizing clock
+2-sshd.sh: Starting SSH server

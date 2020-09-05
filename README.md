@@ -32,7 +32,13 @@ Must be added to the kernel's configuration, likely through bootloader (i.e. GRU
 
 ### Included Scripts
 
-The scripts available in `fpinit.d/` and `fphalt.d/` are a stripped-down and modified subset of [Void's runit scripts](https://github.com/void-linux/void-runit), [stali's sinit scripts](http://r-36.net/scm/stali-init/files.html), and [Alpine's openrc scripts](https://git.alpinelinux.org/aports/tree/main/busybox-initscripts), doing slightly more than the absolute minimum necessary for a usable system.  Right now, they are intended to work on Alpine, however all Alpine/busybox-specific behavior is configurable and removable, some of which automatically (such as `getty` vs. `agetty` -- however, `mdev` vs. `(e)udev` is not as there exist tangible differences between the two).
+The scripts available in `fpinit.d/` and `fphalt.d/` are a stripped-down and modified subset of [Void's runit scripts](https://github.com/void-linux/void-runit), [stali's sinit scripts](http://r-36.net/scm/stali-init/files.html), and [Alpine's openrc scripts](https://git.alpinelinux.org/aports/tree/main/busybox-initscripts), doing slightly more than the absolute minimum necessary for a usable system.  Right now, they are tested and intended to work on Alpine, however all Alpine/busybox-specific behavior has alternatives which will be used automatically if necessary.  Specifically, this includes:
+
+- `agetty`:  preferred over `getty`
+- `mdev`:  preferred over `(e)udev`
+- `udhcpc`: preferred over `dhcpcd` (which is preferred over `dhclient`)
+
+Additionally, there exist a number of scripts in `fpinit.extra.d/` which provide non-essential nice-to-haves (e.g. ntpd, sshd, etc.), with the steps to install them being the same as for user-created scripts (detailed below).
 
 ### Adding New Scripts
 

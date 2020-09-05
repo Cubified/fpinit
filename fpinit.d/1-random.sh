@@ -15,6 +15,6 @@ rm -f $RANDOM_SEED
   umask 077
   if [ -e $POOL_SIZE_FILE ]; then
     POOL_SIZE=$(cat $POOL_SIZE_FILE)
-    dd if=/dev/urandom of=$RANDOM_SEED count=$(($POOL_SIZE / 4096)) 2>/dev/null
+    dd if=/dev/urandom of=$RANDOM_SEED count=$((POOL_SIZE / 4096)) 2>/dev/null
   fi
 )
