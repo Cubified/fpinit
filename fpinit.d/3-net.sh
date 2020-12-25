@@ -11,12 +11,8 @@ find_inet() {
   awk -v iface="$1" '$2 == iface {printf("%s", $4)}' "$CFGFILE"
 }
 
-find_addr() {
-  awk -v iface="$1" '$2 == iface { hit = 1; next; }; $1 == "address" && hit == 1 { printf("%s/24", $2); hit = 0; }' "$CFGFILE"
-}
-
-find_gateway() {
-  awk -v iface="$1" '$2 == iface { hit = 1; next; }; $1 == "gateway" && hit == 1 { printf($2); hit = 0; }' "$CFGFILE"
+find_val() {
+  awk -v iface="$1" -v val="$2" '$2 == iface { hit = 1; next; }; $1 == val && hit == 1 { printf($2); hit = 0; }' "$CFGFILE"
 }
 
 if command -v udhcpc >/dev/null; then
@@ -34,6 +30,6 @@ for iface in $(find_ifaces); do
       $DHCP &
     fi
   elif [ "$(find_inet "$iface")" = "static" ]; then
-    ip route add "$(find_addr "$iface")" via "$(find_gateway "$iface")" dev "$iface"
+    ip route add "$(find_val "$iface" "address")" via "$(find_val "$iface" "gateway")" dev "$iface"
   fi
 done

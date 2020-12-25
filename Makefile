@@ -18,17 +18,16 @@ CP=/bin/cp
 
 OS_NAME=$(shell awk -F'=' '$$1 == "PRETTY_NAME" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
 
-FPINIT_VERSION=0.1.0
-SCRIPT_GREETING='BLUE "Welcome to " GREEN "fpinit v$(FPINIT_VERSION)" BLUE " running on " YELLOW "$(OS_NAME)"'
-SCRIPT_GREETING_NOCOLOR="Welcome to fpinit v$(FPINIT_VERSION) running on $(OS_NAME)"
+FPINIT_VERSION='"0.1.0"'
+SCRIPT_GREETING='"/usr/local/bin/fpinit greet"'
 
 .PHONY: script
 script:
-	$(CC) script/script.c -o script/script $(LIBS) $(FLAGS) -DDO_NOT_DEFINE_GREETING -DGREETING=$(SCRIPT_GREETING) -DGREETING_LEN=$(shell echo $(SCRIPT_GREETING_NOCOLOR) | wc -m)+1
+	$(CC) script/script.c -o script/script $(LIBS) $(FLAGS) -DDO_NOT_DEFINE_GREETING -DGREETING_CMD=$(SCRIPT_GREETING)
 
 .PHONY: fpinit
 fpinit:
-	$(CC) $(SOURCES) -o $(OUT) $(LIBS) $(FLAGS)
+	$(CC) $(SOURCES) -o $(OUT) $(LIBS) $(FLAGS) -DFPINIT_VERSION=$(FPINIT_VERSION)
 
 debug:
 	$(CC) $(SOURCES) -o $(OUT) $(LIBS) $(DEBUGFLAGS)
