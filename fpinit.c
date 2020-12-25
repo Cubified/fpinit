@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/reboot.h>
+#include <sys/utsname.h>
 
 #include <signal.h>
 #include <stdio.h>
@@ -51,6 +52,7 @@ main(int argc, char **argv)
   size_t i;
   FILE *fp;
   char outp[32];
+  struct utsname kern;
 
   if (getpid() != 1){
     if (argc == 2){
@@ -59,10 +61,11 @@ main(int argc, char **argv)
       } else if (argv[1][0] == '6'){
         sigreboot();
       } else if (argv[1][0] == 'g'){
-        fp = popen("awk -F= '$1==\"PRETTY_NAME\" { gsub(/\"/, \"\", $2); print $2 }' /etc/os-release", "r");
+        fp = popen("awk -F= '$1==\"NAME\" { gsub(/\"/, \"\", $2); printf \"%s\",$2 }' /etc/os-release", "r");
         fgets(outp, sizeof(outp), fp);
         pclose(fp);
-        printf(BLUE "Welcome to " GREEN "fpinit v" FPINIT_VERSION BLUE " running on " YELLOW "%s", outp);
+        uname(&kern);
+        printf(BLUE "Welcome to " GREEN "fpinit v" FPINIT_VERSION BLUE " running on " YELLOW "%s %s", outp, kern.release);
         return 0;
       }
     }
