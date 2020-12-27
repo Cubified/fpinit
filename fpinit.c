@@ -8,7 +8,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/reboot.h>
-#include <sys/utsname.h>
 
 #include <signal.h>
 #include <stdio.h>
@@ -50,9 +49,6 @@ main(int argc, char **argv)
 {
   int sig;
   size_t i;
-  FILE *fp;
-  char outp[32];
-  struct utsname kern;
 
   if (getpid() != 1){
     if (argc == 2){
@@ -60,13 +56,6 @@ main(int argc, char **argv)
         sigpoweroff();
       } else if (argv[1][0] == '6'){
         sigreboot();
-      } else if (argv[1][0] == 'g'){
-        fp = popen("awk -F= '$1==\"NAME\" { gsub(/\"/, \"\", $2); printf \"%s\",$2 }' /etc/os-release", "r");
-        fgets(outp, sizeof(outp), fp);
-        pclose(fp);
-        uname(&kern);
-        printf(BLUE "Welcome to " GREEN "fpinit v" FPINIT_VERSION BLUE " running on " YELLOW "%s %s", outp, kern.release);
-        return 0;
       }
     }
     printf(RED "fpinit must be run as PID 1.\n" YELLOW "To power off the system, please run " GREEN "fpinit 0" YELLOW ".\n" YELLOW "To reboot the system, please run " GREEN "fpinit 6" YELLOW ".\n" RESET);

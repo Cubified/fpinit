@@ -19,7 +19,7 @@ CP=/bin/cp
 OS_NAME=$(shell awk -F'=' '$$1 == "PRETTY_NAME" {printf("%s", $$2)}' /etc/os-release | sed 's/"//g')
 
 FPINIT_VERSION='"0.1.0"'
-SCRIPT_GREETING='"/usr/local/bin/fpinit greet"'
+SCRIPT_GREETING='"printf \"\\x1b[34mWelcome to \\x1b[32mfpinit v$(FPINIT_VERSION) \\x1b[34mrunning on \\x1b[33m$$(. /etc/os-release; printf \"$$PRETTY_NAME\")\""'
 
 .PHONY: script
 script:
