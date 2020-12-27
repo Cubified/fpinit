@@ -3,10 +3,10 @@
 1-hostname.sh: Setting hostname
 1-random.sh: Seeding random number generator
 2-var.sh: Cleaning up /var
-2-sysctl.sh: Setting kernel parameters
+2-modules.sh: Loading kernel modules
 2-dmesg.sh: Writing kernel log
-3-modules.sh: Loading kernel modules
 3-net.sh: Setting up networking
+3-sysctl.sh: Setting kernel parameters
 3-syslogd.sh: Starting system log
 4-tty.sh: Starting TTYs
 
